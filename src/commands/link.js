@@ -1,7 +1,7 @@
 import { addServer } from "../db.js"; 
 import { PREFIX } from "../utils.js";
 import { client } from "../client.js";
-import { servers, addServerCache } from "../utils.js";
+import { servers, addServerCache, users } from "../utils.js";
 
 export default {
   name: "link",
@@ -13,6 +13,10 @@ export default {
 
     if (args.length < 1) {
       return message.reply(`Usage: ${PREFIX}link <channel>`);
+    }
+
+    if (users.some(u => u.id === message.author.id && u.banned === 1)) {
+      return message.reply("You are banned from using the bridge.");
     }
 
     const channelText = args[0];

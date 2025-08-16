@@ -60,7 +60,7 @@ client.on("messageCreate", async (message) => {
         avatarURL: message.author.displayAvatarURL(),
         files: message.attachments.map(att => att.url),
       }).catch(async (err) => {
-        Logger.error("Failed to send webhook for server: " + (server.name || "Unknown") + " (ID: " + server.id + ")", err);
+        Logger.error("Failed to send webhook for server: " + (server.name || "Unknown") + " (ID: " + server.id + ")");
         if (err.code === 10015 || err.code === 50027) { 
           await removeServer(server.id);
           removeServerCache(server.id);
