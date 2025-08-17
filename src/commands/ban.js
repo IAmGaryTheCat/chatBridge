@@ -14,7 +14,6 @@ export default {
           const index = users.findIndex(u => u.username === reply.author.username);
           const userId = users[index].id;
           const username = users[index].username;
-          console.log(userId);
           await banUser(userId);
           banUserCache(userId);
           return message.reply(`User ${username} has been banned from the bridge.`);
