@@ -4,6 +4,7 @@ import { users } from "../users.js";
 export default {
   name: "servers",
   description: "list all linked servers",
+  usage: "servers",
   async execute(message) {
 
     if (users.some(u => u.id === message.author.id && u.admin === 1)) {

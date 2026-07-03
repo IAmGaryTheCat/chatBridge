@@ -5,6 +5,7 @@ import { USERID, PREFIX } from "../utils.js";
 export default {
   name: "admin",
   description: "give admin rights to a user",
+  usage: "admin <@user>",
   async execute(message, args) {
     if (message.author.id.toString() !== USERID) {
       return message.reply("You do not have permission to use this command.");

@@ -4,6 +4,7 @@ import { banUser, users } from "../users.js";
 export default {
   name: "ban",
   description: "ban a user from the bridge",
+  usage: "ban <user>",
   async execute(message, args) {
 
     if (users.some(u => u.id === message.author.id && u.admin === 1)) {

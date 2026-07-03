@@ -6,6 +6,7 @@ import { PREFIX } from "../utils.js";
 export default {
   name: "link",
   description: "link your channel to the bridge",
+  usage: "link <channel>",
   async execute(message, args) {
     if (!message.member.permissions.has("Administrator")) {
       return message.reply("You need to be an administrator to use this command.");

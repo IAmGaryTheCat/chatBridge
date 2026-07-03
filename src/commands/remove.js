@@ -6,6 +6,7 @@ import { PREFIX } from "../utils.js";
 export default {
   name: "remove",
   description: "remove a server from the bridge",
+  usage: "remove <server_id>",
   async execute(message, args) {
     if (users.some(u => u.id === message.author.id && u.admin === 1)) {
       if (args.length < 1) {

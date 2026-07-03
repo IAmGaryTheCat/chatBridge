@@ -4,6 +4,7 @@ import { unbanUser, users } from "../users.js";
 export default {
   name: "unban",
   description: "unban a user from the bridge",
+  usage: "unban <user>",
   async execute(message, args) {
     if (users.some(u => u.id === message.author.id && u.admin === 1)) {
       if (args.length < 1) {
