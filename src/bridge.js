@@ -44,10 +44,6 @@ client.on("messageCreate", async (message) => {
       }
     }
 
-    if (message.stickers.size > 0 && message.content === "") {
-      return;
-    }
-
     let totalAttachmentSize = 0;
     message.attachments.forEach(att => {
       if (att.size) totalAttachmentSize += att.size;
@@ -65,12 +61,23 @@ client.on("messageCreate", async (message) => {
       let filteredContent = await filterMessage(message.content);
 
       const name = getAuthorUsernameFromMessage(message);
+      const shitStickers = message.stickers?.filter(s => s.type !== 1 && !s.url.endsWith('.json')).map(s => s.url) || [];
+      const webhookFiles = message.attachments.map(att => att.url);
+      let finalContent = `${replyText}\n${filteredContent}`;
+      
+      if (shitStickers.length > 0) {
+        finalContent += `\n${shitStickers.join('\n')}`;
+      }
+
+      if (!finalContent.trim() && webhookFiles.length === 0) {
+        continue;
+      }
 
       webhookClient.send({
-        content: `${replyText}\n${filteredContent}`,
+        content: finalContent.trim() || undefined,
         username: name,
         avatarURL: message.author.displayAvatarURL(),
-        files: message.attachments.map(att => att.url),
+        files: webhookFiles,
       }).then((sentMessage) => {
         recordMessageBridge(message.id, message.channel.id, server.channelId, sentMessage.id);
       }).catch(async (err) => {
